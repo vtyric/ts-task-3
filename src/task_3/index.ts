@@ -6,6 +6,12 @@
 */
 import { Currency } from "../task_1";
 
-export class Vault{
+export class Vault implements ISecureVaultRequisites{
+	public id: number;
 	public store: Set<Currency> = new Set<Currency>()
+}
+
+
+export interface ISecureVaultRequisites{
+	id: number
 }
