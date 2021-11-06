@@ -46,7 +46,6 @@ export class BankController {
 
             return;
         }
-
         receiver.deposit(contract.value);
         contract.closeTransfer;
     }
