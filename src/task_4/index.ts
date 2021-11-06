@@ -7,23 +7,41 @@
  * SmartContract - перевод через блокчейн, задержка 3000мс
  * LogisticContract - перевозка металла, задержка 6000мс
  */
-import { Currency } from "../task_1";
-import { ISecureVaultRequisites } from "../task_3";
+import {Currency} from "../task_1";
+import {ISecureVaultRequisites} from "../task_3";
 
-export class SmartContract implements IContract{
 
+abstract class Contract implements IContract {
+    public id: number;
+    public receiver: ISecureVaultRequisites;
+    public sender: ISecureVaultRequisites;
+    public state: ContractState = ContractState.pending;
+    public value: Currency;
+
+    public closeTransfer(): void {
+        this.state = ContractState.close;
+    }
+
+    public rejectTransfer(): void {
+        this.state = ContractState.rejected;
+    }
+
+    public signAndTransfer(): void {
+        this.state = ContractState.transfer;
+    }
 }
 
-export class BankingContract implements IContract{
-
+export class SmartContract extends Contract {
 }
 
-export class LogisticContract implements IContract{
+export class BankingContract extends Contract {
+}
 
+export class LogisticContract extends Contract {
 }
 
 
-export interface IContract{
+export interface IContract {
     /**
      * Уникальный номер контракта
      */
@@ -58,7 +76,7 @@ export interface IContract{
     rejectTransfer: () => void
 }
 
-export enum ContractState{
+export enum ContractState {
     /**
      * Контракт находится в ожидании исполнения
      */
