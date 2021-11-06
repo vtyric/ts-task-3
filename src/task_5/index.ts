@@ -7,17 +7,48 @@
  *
  * Хранилища должны быть сохранены в массив vaultStore: Vault[]
  */
-import { IContract } from "../task_4";
-import { ISecureVaultRequisites } from "../task_3";
+import {ISecureVaultRequisites, Vault} from "../task_3";
+import {IContract} from "../task_4";
 
-export class BankController{
+export class BankController {
 
-    public registerVault(): ISecureVaultRequisites{
+    private static instance: BankController;
+    private readonly _vaultStore: Vault[];
 
+    private constructor() {
+        this._vaultStore = [];
     }
 
-    public proceedContract(contract: IContract) {
+    public static getInstance(): BankController {
+        if (!this.instance) {
+            this.instance = new BankController();
+        }
 
+        return this.instance;
+    }
+
+    public registerVault(): ISecureVaultRequisites {
+        const vault = new Vault();
+        this._vaultStore.push(vault);
+
+        return vault;
+    }
+
+    public proceedContract(contract: IContract): void {
+        const sender = this._vaultStore.find(v => v.id === contract.id);
+        const receiver = this._vaultStore.find(v => v.id === contract.receiver.id);
+
+        contract.signAndTransfer();
+        try {
+            sender.withdraw(contract.value);
+        } catch (e) {
+            contract.closeTransfer();
+
+            return;
+        }
+
+        receiver.deposit(contract.value);
+        contract.closeTransfer;
     }
 }
 
