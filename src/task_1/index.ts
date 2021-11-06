@@ -11,14 +11,14 @@ export class Currency {
     private readonly _name: string;
     private readonly _type: CurrencyType;
     private readonly _unit: string;
-    private _value: number;
-    private _unitDictionary: Record<string, CurrencyType> = {
+    private readonly _unitDictionary: Record<string, CurrencyType> = {
         ["rub"]: CurrencyType.Material,
         ["usd"]: CurrencyType.Material,
         ["xrp"]: CurrencyType.Cryptocurrency,
         ["eth"]: CurrencyType.Cryptocurrency,
         ["gold"]: CurrencyType.MetalDeposit
     };
+    private _value: number;
 
     constructor(name: string, value: number, unit: string) {
         if (!name ||
