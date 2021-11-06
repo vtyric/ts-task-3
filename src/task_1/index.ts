@@ -12,15 +12,24 @@ export class Currency {
     private readonly _type: CurrencyType;
     private readonly _unit: string;
     private _value: number;
+    private _unitDictionary: Record<string, CurrencyType> = {
+        ["rub"]: CurrencyType.Material,
+        ["usd"]: CurrencyType.Material,
+        ["xrp"]: CurrencyType.Cryptocurrency,
+        ["eth"]: CurrencyType.Cryptocurrency,
+        ["gold"]: CurrencyType.MetalDeposit
+    };
 
-    constructor(name: string, value: number, unit: keyof typeof CurrencyType) {
-        if (!name || value < 0 || value === undefined || !unit) {
+    constructor(name: string, value: number, unit: string) {
+        if (!name ||
+            value < 0 || value === undefined ||
+            !unit || Object.keys(this._unitDictionary).every(k => k !== unit)) {
             throw new Error("некорректные аргументы конструктора");
         }
         this._name = name;
         this._value = value;
         this._unit = unit;
-        this._type = CurrencyType[unit];
+        this._type = this._unitDictionary[unit];
     }
 
     get name() {
@@ -48,5 +57,8 @@ export class Currency {
 }
 
 export enum CurrencyType {
-    "rub" = "Мaterial"
+    Material,
+    Cryptocurrency,
+    MetalDeposit
 }
+
