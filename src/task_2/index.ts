@@ -10,30 +10,30 @@ import {Currency} from "../task_1";
 
 export class Dollar extends Currency {
     constructor(value: number) {
-        super("dollar", value, "usd");
+        super("Dollar", value, "usd");
     }
 }
 
 export class Ruble extends Currency {
     constructor(value: number) {
-        super("ruble", value, "rub");
+        super("Ruble", value, "rub");
     }
 }
 
 export class XRP extends Currency {
     constructor(value: number) {
-        super("ripple", value, "xrp");
+        super("XPR", value, "xrp");
     }
 }
 
 export class Etherium extends Currency {
     constructor(value: number) {
-        super("etherium", value, "eth");
+        super("Etherium", value, "eth");
     }
 }
 
 export class Gold extends Currency {
     constructor(value: number) {
-        super("gold", value, "gold");
+        super("Gold", value, "gold");
     }
 }

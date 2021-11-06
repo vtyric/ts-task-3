@@ -49,8 +49,8 @@ export class Currency {
     }
 
     set value(value: number) {
-        if (value < 0) {
-            throw new Error("значение не может быть отрицательным");
+        if (value < 0 || value === undefined) {
+            throw new Error("некорректное значение");
         }
         this._value = value;
     }
