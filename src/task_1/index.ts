@@ -9,7 +9,7 @@
 
 export class Currency {
     private readonly _name: string;
-    private readonly _currencyType: CurrencyType;
+    private readonly _type: CurrencyType;
     private readonly _unit: string;
     private _value: number;
 
@@ -20,15 +20,15 @@ export class Currency {
         this._name = name;
         this._value = value;
         this._unit = unit;
-        this._currencyType = CurrencyType[name];
+        this._type = CurrencyType[name];
     }
 
     get name() {
         return this._name;
     }
 
-    get currencyType() {
-        return this._currencyType;
+    get type() {
+        return this._type;
     }
 
     get unit() {
