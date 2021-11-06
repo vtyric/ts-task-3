@@ -13,14 +13,14 @@ export class Currency {
     private readonly _unit: string;
     private _value: number;
 
-    constructor(name: keyof typeof CurrencyType, value: number, unit: string) {
+    constructor(name: string, value: number, unit: keyof typeof CurrencyType) {
         if (!name || value < 0 || value === undefined || !unit) {
-            throw new Error("некорректно введены параметры констркутора");
+            throw new Error("некорректные аргументы конструктора");
         }
         this._name = name;
         this._value = value;
         this._unit = unit;
-        this._type = CurrencyType[name];
+        this._type = CurrencyType[unit];
     }
 
     get name() {
@@ -48,7 +48,5 @@ export class Currency {
 }
 
 export enum CurrencyType {
-    "ru" = "Мaterial",
-    "bitcoin" = "Сryptocurrency",
-    "alpha" = "МetalDeposit"
+    "rub" = "Мaterial"
 }
