@@ -17,6 +17,18 @@ abstract class Contract implements IContract {
     public sender: ISecureVaultRequisites;
     public state: ContractState = ContractState.pending;
     public value: Currency;
+    private readonly _delay: number;
+
+    protected constructor(delay: number) {
+        if (delay < 0) {
+            throw Error("нельзя сделать отрицательную задрежку");
+        }
+        this._delay = delay;
+    }
+
+    public get delay() {
+        return this._delay;
+    }
 
     public closeTransfer(): void {
         this.state = ContractState.close;
@@ -32,16 +44,26 @@ abstract class Contract implements IContract {
 }
 
 export class SmartContract extends Contract {
+    constructor() {
+        super(3000);
+    }
 }
 
 export class BankingContract extends Contract {
+    constructor() {
+        super(0);
+    }
 }
 
 export class LogisticContract extends Contract {
+    constructor() {
+        super(6000);
+    }
 }
 
 
 export interface IContract {
+    delay: number,
     /**
      * Уникальный номер контракта
      */
