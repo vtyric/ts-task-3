@@ -38,18 +38,18 @@ export class BankController {
         const sender = this._vaultStore.find(v => v.id === contract.id);
         const receiver = this._vaultStore.find(v => v.id === contract.receiver.id);
 
-        setTimeout(() => {
-            contract.signAndTransfer();
-            try {
-                sender.withdraw(contract.value);
-            } catch (e) {
-                contract.closeTransfer();
+        contract.signAndTransfer();
+        try {
+            sender.withdraw(contract.value);
+        } catch (e) {
+            contract.closeTransfer();
 
-                return;
-            }
-            receiver.deposit(contract.value);
-            contract.closeTransfer;
-        }, contract.delay);
+            return;
+        }
+
+        setTimeout(() => receiver.deposit(contract.value), contract.delay);
+
+        contract.closeTransfer;
     }
 }
 
