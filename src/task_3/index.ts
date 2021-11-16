@@ -10,7 +10,7 @@ export class Vault implements ISecureVaultRequisites {
     public id: number;
     public store: Set<Currency> = new Set<Currency>();
 
-    withdraw(currency: Currency): void {
+    public withdraw(currency: Currency): void {
         this.store.forEach(c => {
             if (c.name === currency.name) {
                 if (c.value < currency.value) {
